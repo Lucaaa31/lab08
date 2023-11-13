@@ -5,6 +5,8 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -44,12 +46,14 @@ public class MiniGUI {
                 System.out.println(randomGenerator.nextInt());
             }
         });
-        /* Parte 1 */
+        /* Part 1 */
         final JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS ));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS ));
         frame.add(panel, BorderLayout.CENTER);
         panel.add(write); 
-        /* Parte 2 */
+        /* Part 2 */
+       JTextField result = new JTextField("Result");
+       frame.add(result, BorderLayout.NORTH);
 
     }
 
