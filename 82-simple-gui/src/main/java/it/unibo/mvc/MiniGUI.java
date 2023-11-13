@@ -52,9 +52,16 @@ public class MiniGUI {
         frame.add(panel, BorderLayout.CENTER);
         panel.add(write); 
         /* Part 2 */
-       JTextField result = new JTextField("Result");
-       frame.add(result, BorderLayout.NORTH);
-
+        JTextField result = new JTextField("Result");
+        frame.add(result, BorderLayout.NORTH);
+        /* Parte 3 */
+        write.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                result.setText("Result: "+ Integer.toString(randomGenerator.nextInt()));
+            }
+            
+        });
     }
 
     private void display() {
