@@ -2,13 +2,13 @@ package it.unibo.deathnote;
 
 import it.unibo.deathnote.api.DeathNote;
 import it.unibo.deathnote.impl.DeathNoteImpl;
-import static org.junit.jupiter.api.Assertions.*;
 
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static it.unibo.deathnote.api.DeathNote.RULES;
 import static java.lang.Thread.sleep;
 
 public class TestDeathNote {
@@ -32,7 +32,9 @@ public class TestDeathNote {
             Assertions.fail("IllegalArgoument but do not throw Exception for numRule=" + numRule);
         }catch (Exception e) {
             Assertions.assertEquals(IllegalArgumentException.class , e.getClass() ); //controllo che sia un IllegalArgumentException
-            Assertions.assertFalse(deathNote.getRule(numRule).isEmpty());
+            for(int i=1; i < RULES.size(); i++){
+                Assertions.assertFalse(deathNote.getRule(i).isEmpty());
+            }
         }
         
     
@@ -60,7 +62,7 @@ public class TestDeathNote {
             deathNote.getDeathCause("death cause");
             Assertions.fail("IllegalStateException but do not throw Exception");
         } catch (Exception e) {
-            Assertions.assertEquals(IllegalStateException.class , e);
+            Assertions.assertEquals(IllegalArgumentException.class , e.getClass());
         }
         deathNote.writeName("Mattia Morri");
         Assertions.assertEquals("heart attack", deathNote.getDeathCause("Mattia Morri"));
@@ -78,16 +80,16 @@ public class TestDeathNote {
             deathNote.getDeathCause("death details");
             Assertions.fail("IllegalStateException but do not throw Exception");
         } catch (Exception e) {
-            Assertions.assertEquals(IllegalStateException.class , e);
+            Assertions.assertEquals(IllegalArgumentException.class , e.getClass());
         }
         deathNote.writeName("Jacopo Mosconi");
-        Assertions.assertEquals("", deathNote.getDeathDetails("Jacopo Mosconi"));
+        Assertions.assertEquals(null, deathNote.getDeathDetails("Jacopo Mosconi"));
         deathNote.writeDetails("ran for too long");
-        Assertions.assertEquals("ran for too long", deathNote.getDeathCause("Jacopo Mosconi"));
+        Assertions.assertEquals("ran for too long", deathNote.getDeathDetails("Jacopo Mosconi"));
         deathNote.writeName("Simone Lizzo");
         sleep(6100);
         deathNote.writeDetails("bit by a spider while sleeping");
-        Assertions.assertEquals("", deathNote.getDeathCause("Simone Lizzo"));
+        Assertions.assertEquals("heart attack", deathNote.getDeathCause("Simone Lizzo"));
 
     }
 
